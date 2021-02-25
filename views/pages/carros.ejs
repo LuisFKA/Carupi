@@ -1,0 +1,65 @@
+<%- contentFor('body') %>
+  <div class="jumbotron text-center">
+     <h1>Olha esses Carros!</h1>
+     <div class="row">
+       <h2>Filtros para busca</h2>
+        <form class="form-inline my-2 my-lg-0" action="carrosfiltros" method="post">
+          <input class="form-control mr-sm-2" type="text" name="modelofilter" placeholder="Modelo">
+          <input class="form-control mr-sm-2" type="text" name="marcafilter" placeholder="Marca">
+          <input class="form-control mr-sm-2" type="text" name="versaofilter" placeholder="Versão">
+          <input class="form-control mr-sm-2" type="text" name="quilometragemfilter" placeholder="Quilometragem">
+          <input class="form-control mr-sm-2" type="text" name="cambiofilter" placeholder="Cambio">
+          <input class="form-control mr-sm-0" type="text" name="anominfilter" placeholder="Ano min">
+          <input class="form-control mr-sm-0" type="text" name="anomaxfilter" placeholder="Ano max">
+          <input class="form-control mr-sm-0" type="text" name="precominfilter" placeholder="Preço min">
+          <input class="form-control mr-sm-0" type="text" name="precomaxfilter" placeholder="Preço max">
+          <button class="btn btn-primary" type="submit">Aplicar filtros</button>
+        </form>
+        <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col">Marca</th>
+                <th scope="col">Modelo</th>
+                <th scope="col">Versão</th>
+                <th scope="col">Ano</th>
+                <th scope="col">Quilometragem</th>
+                <th scope="col">Câmbio</th>
+                <th scope="col">Preço</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <form action="selecionacarro" method="post">
+                <tbody>
+                    <% for (var i = 0; i < carros.length; ++i){%>            
+                    <tr class="table-active">
+                        <th><%= carros[i].marca%></th>
+                        <th><%= carros[i].modelo%></th>
+                        <th><%= carros[i].versao%></th>
+                        <th><%= carros[i].ano%></th>
+                        <th><%= carros[i].quilometragem%></th>
+                        <th><%= carros[i].cambio%></th>
+                        <th><%= carros[i].preco%></th>
+                        <th><input type="submit" onclick="onClickDetails('<%= carros[i]._id %>')" value="Detalhes"></th>
+                        <th><input type="submit" onclick="onClickDelete('<%= carros[i]._id %>')" value="Deletar"></th>
+                        <input type="hidden" name="itemId" id="itemId">  
+                        <input type="hidden" name="buttonType" id="buttonType">               
+                    </tr>
+                    <% } %>
+                </tbody>
+            </form>
+        </table>        
+     </div>
+  </div>
+
+
+  <script>
+    function onClickDetails(id){
+        document.getElementById('itemId').value=id;
+        document.getElementById('buttonType').value="details";
+      }
+    function onClickDelete(id){
+      document.getElementById('itemId').value=id;      
+      document.getElementById('buttonType').value="delete";
+    }
+  </script>
